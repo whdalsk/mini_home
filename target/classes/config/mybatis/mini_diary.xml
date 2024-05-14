@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mini_diary">	
+
+	<select id="selectAll" resultType="mddto">
+   	   SELECT * 
+   	   FROM mini_diary 
+   	   ORDER BY d_wdate DESC
+   	</select>
+	
+	<select id="selectReplyAll" resultType="mddto">
+   	   select * 
+   	   from diary_reply
+   	</select>
+	
+	<select id="selectCount" resultType="int">
+   	   select count(*) 
+   	   from mini_diary
+   	</select>	
+	
+	<select id="selectAllPaging" parameterType="mddto" resultType="mddto">
+   	   SELECT * 
+   	   FROM (
+   	   		  select rownum rn, d.*
+   	   		  from mini_diary d
+   	   ) 
+   	   WHERE rn BETWEEN #{start} and #{end} 
+   	   ORDER BY d_wdate DESC
+   	</select>
+	
+	<insert id="insert" parameterType="mddto">
+	    INSERT INTO mini_diary (d_code, d_name, d_title, d_content, d_wdate)
+	    VALUES (mini_diary_seq.nextval, #{d_name}, #{d_title}, #{d_content}, SYSDATE)
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM mini_diary WHERE d_code = #{code}
+	</delete>
+	
+	<delete id="replydelete" parameterType="int">
+		DELETE FROM mini_diary WHERE d_code = #{code}
+	</delete>
+	
+	<update id="update">
+		UPDATE mini_diary 
+		SET d_title  = #{d_title}, d_content  = #{d_content} 
+		WHERE d_code  = #{d_code}
+	</update>
+	
+	<insert id="replyinsert" parameterType="mddto">
+	    INSERT INTO diary_reply (dr_num ,dr_writer ,dr_content ,dr_code)
+	    VALUES (diary_reply_seq.nextval, #{dr_writer}, #{dr_content}, #{dr_code})
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+		
+	<typeAliases>
+		<typeAlias alias="ldto"  type="net.hb.miniLogin.LoginDTO"/>
+		<typeAlias alias="hdto"  type="net.hb.miniHome.MiniHomeDTO"/>
+		<typeAlias alias="pdto"  type="net.hb.miniProfile.MiniProfileDTO"/>
+		<typeAlias alias="mddto"  type="net.hb.miniDiary.MiniDiaryDTO"/>
+		<typeAlias alias="mdrdto"  type="net.hb.miniDiary.MiniDiaryReplyDTO"/>
+		<typeAlias alias="mpdto"  type="net.hb.miniPhoto.MiniPhotoDTO"/>
+		<typeAlias alias="mprdto"  type="net.hb.miniPhoto.MiniPhotoReplyDTO"/>
+		<typeAlias alias="mgdto"  type="net.hb.miniGuest.MiniGuestDTO"/>
+		<typeAlias alias="mgrdto"  type="net.hb.miniGuest.MiniGuestReplyDTO"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="config/mybatis/mini_home.xml"/>
+		<mapper resource="config/mybatis/mini_profile.xml"/>
+		<mapper resource="config/mybatis/mini_diary.xml"/>
+		<mapper resource="config/mybatis/mini_diary_reply.xml"/>
+		<mapper resource="config/mybatis/mini_photo.xml"/>
+		<mapper resource="config/mybatis/mini_photo_reply.xml"/>
+		<mapper resource="config/mybatis/mini_guest.xml"/>
+		<mapper resource="config/mybatis/mini_guest_reply.xml"/>
+		<mapper resource="config/mybatis/login.xml"/>
+	</mappers>
+</configuration>

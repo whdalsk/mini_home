@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mini_home">	
+	
+	<select id="detail" parameterType="String" resultType="net.hb.miniHome.MiniHomeDTO">
+	   select * from  mini_home  where h_name = #{h_name} 
+	</select>
+	
+	<select id="selectAll" resultType="net.hb.miniHome.MiniHomeDTO">
+		select * from mini_ilchon
+	</select>
+	
+	<insert id="add" parameterType="String">
+		insert into mini_ilchon values(#{i_content})
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+

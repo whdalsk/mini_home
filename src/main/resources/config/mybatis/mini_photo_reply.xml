@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mini_photo_reply">	
+	
+	<select id="selectAll" parameterType="int" resultType="mprdto">
+		select * from photo_reply where pr_code = #{idx}
+	</select>
+	
+	<insert id="add" parameterType="mprdto">
+		insert into photo_reply values(photo_reply_seq.nextval, #{pr_writer}, #{pr_content}, #{pr_code})
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+

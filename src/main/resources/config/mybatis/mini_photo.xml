@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mini_photo">	
+
+	<select id="selectAll" parameterType="mpdto" resultType="mpdto">
+		select * from (select rownum rn , m.* from mini_photo m)
+		where rn between #{start} and #{end}
+		order by p_wdate desc
+	</select>
+	
+	<insert id="add" parameterType="mpdto">
+		insert into mini_photo 
+		values(mini_photo_seq.nextval, #{p_name}, #{p_title}, #{p_content}, sysdate, #{p_img})
+	</insert>
+	
+	<select id="countAll" resultType="int">
+		select count(*) from mini_photo
+	</select>
+	
+	<update id="update" parameterType="mpdto">
+		update mini_photo set p_title=#{p_title}, p_content=#{p_content}, p_img=#{p_img} where p_code=#{p_code}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		delete from mini_photo where p_code = #{idx}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+

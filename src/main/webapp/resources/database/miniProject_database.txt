@@ -1,0 +1,172 @@
+--회원정보
+drop table mini_member;
+create table mini_member(
+m_id varchar2(50) primary key,
+m_pw varchar2(50) not null,
+m_name varchar2(50) not null,
+m_phone varchar2(13) not null,
+m_email varchar2(50) not null
+);
+
+--회원정보 테이블 이미 생성했을 경우 실행
+alter table mini_member add m_name varchar2(50);
+alter table mini_member modify(m_name not null);
+
+--회원정보 insert
+insert into mini_member values (
+'sky',
+'1234',
+'이정후',
+'010-1234-5675',
+'sky@naver.com'
+);
+insert into mini_member values (
+'ma',
+'1234',
+'마동석',
+'010-9876-5435',
+'ma@crime.com'
+);
+
+--로그인
+drop table mini_login;
+create table mini_login(
+m_id varchar2(50) primary key,
+m_pw varchar2(50) not null,
+constraint mini_login_fk foreign key(m_id) references mini_member(m_id) on delete cascade
+);
+
+--홈
+drop table mini_home;
+create table mini_home(
+h_name varchar2(50) not null,
+h_img varchar2(50),
+h_room_img varchar2(50),
+h_content varchar2(100),
+h_title varchar2(50),
+constraint mini_home_fk foreign key(h_name) references mini_member(m_id) on delete cascade
+);
+
+--홈 insert
+insert into mini_home values (
+'sky',
+'홈사진.jpeg',
+'미니룸.jpg',
+'ㄱHㄱl면.. 죽는ㄷr..',
+'학교라는 감ok... 벗어난 ㄷr...'
+);
+insert into mini_home values (
+'ma',
+'crimecity.jpg',
+'미니룸2.jpg',
+'ㅇㅏ직 모ㅅ 봄ㅠㅠ',
+'어 아직 싱글이야'
+);
+
+--일촌평
+drop table mini_ilchon;
+create table mini_ilchon(
+i_content varchar2(100) not null
+);
+
+--프로필
+drop table mini_profile;
+create table mini_profile(
+p_id varchar2(50) not null,
+p_img varchar2(50),
+p_content varchar2(100),
+constraint mini_profile_fk foreign key(p_id) references mini_member(m_id) on delete cascade
+);
+
+--프로필 insert
+insert into mini_profile values (
+'sky',
+'lee.jpg',
+'1998년 8월 어느날 ,<br>야구선수의 아들로 태어남.<br>2017년 1차 지명으로 넥센에 입단, 그 해 신인왕을 수상.<br>이후 2022년 골든 글러브와 시즌MVP를 수상.<br>2023시즌 후 미국에 진출해 MLB 샌프란시스코 자이언츠에 입단함.'
+);
+insert into mini_profile values (
+'ma',
+'ma.jpg',
+'서울금천경찰서 강력1반 근무(경위),<br>장첸, 강해상 체포.<br>서울지방경찰청 광역수사대 근무,<br>경감으로 승진.<br>주성철, 백창기 체포.'
+);
+
+--다이어리
+drop sequence mini_diary_seq;
+create sequence mini_diary_seq;
+
+drop table mini_diary;
+create table mini_diary(
+d_code number(4) primary key,
+d_name varchar2(50) not null,
+d_title varchar2(500) not null,
+d_content varchar2(500) not null,
+d_wdate date not null,
+constraint mini_diary_fk foreign key(d_name) references mini_member(m_id) on delete cascade
+);
+
+--다이어리 댓글
+drop sequence diary_reply_seq;
+create sequence diary_reply_seq;
+
+create table diary_reply(
+dr_num number(4) primary key,
+dr_writer varchar2(50) not null,
+dr_content varchar2(500) not null,
+dr_code number(4) not null,
+constraint  diary_reply_fk  foreign key(dr_code) references  mini_diary(d_code) on delete cascade
+);
+
+--사진첩
+drop sequence mini_photo_seq;
+create sequence mini_photo_seq;
+
+drop table mini_photo;
+create table mini_photo(
+p_code number(4) primary key,
+p_name varchar2(50) not null,
+p_title varchar2(500) not null,
+p_content varchar2(500) not null,
+p_wdate date not null,
+p_img varchar2(50) not null,
+constraint mini_photo_fk foreign key(p_name) references mini_member(m_id) on delete cascade
+);
+
+--사진첩 댓글
+drop sequence photo_reply_seq;
+create sequence photo_reply_seq;
+
+create table photo_reply(
+pr_num number(4) primary key,
+pr_writer varchar2(50) not null,
+pr_content varchar2(500) not null,
+pr_code number(4) not null,
+constraint  photo_reply_fk  foreign key(pr_code) references  mini_photo(p_code) on delete cascade
+);
+
+--방명록
+drop sequence mini_guest_seq;
+create sequence mini_guest_seq;
+
+drop table mini_guest;
+create table mini_guest(
+g_code number(4) primary key,
+g_name varchar2(50) not null,
+g_content varchar2(500) not null,
+g_wdate date not null,
+constraint mini_guest_fk foreign key(g_name) references mini_member(m_id) on delete cascade
+);
+
+--방명록 댓글
+drop sequence guest_reply_seq;
+create sequence guest_reply_seq;
+
+create table guest_reply(
+gr_num number(4) primary key,
+gr_writer varchar2(50) not null,
+gr_content varchar2(500) not null,
+gr_code number(4) not null,
+constraint  guest_reply_fk  foreign key(gr_code) references  mini_guest(g_code) on delete cascade
+);
+
+
+
